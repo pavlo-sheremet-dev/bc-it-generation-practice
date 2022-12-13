@@ -12,11 +12,7 @@ export const Statistics = ({ title, statsData }) => {
 
       <StatisticsList>
         {statsData.map(({ id, total, title }) => (
-          <StatisticBox key={id}>
-            {/* Тут має бути іконка */}
-            <StatisticCounter>{total}</StatisticCounter>
-            <StatisticText>{title}</StatisticText>
-          </StatisticBox>
+          <StatisticItem key={id} id={id} total={total} title={title} />
         ))}
       </StatisticsList>
     </>
@@ -24,12 +20,12 @@ export const Statistics = ({ title, statsData }) => {
 };
 
 Statistics.propTypes = {
-  title: propTypes.string,
-  statsData: propTypes.arrayOf(
-    propTypes.shape({
-      title: propTypes.string.isRequired,
-      total: propTypes.number.isRequired,
-      id: propTypes.string.isRequired,
+  title: PropTypes.string,
+  statsData: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      total: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
 };
