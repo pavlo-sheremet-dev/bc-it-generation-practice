@@ -8,6 +8,7 @@ import {
   CryptoHistory,
 } from 'components';
 import data from 'data/article.json';
+import stats from 'data/data.json';
 
 // test
 
@@ -31,7 +32,8 @@ export const App = () => {
         <Heading marginTop="50px" marginBottom="50px" textAlign="center">
           Task 2
         </Heading>
-        <Statistics />
+        <Statistics statsData={stats} title="Main Statistics" />
+        <Statistics statsData={stats} />
 
         <Heading marginTop="50px" marginBottom="50px" textAlign="center">
           Task 3
