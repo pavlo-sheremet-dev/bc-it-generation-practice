@@ -8,6 +8,8 @@ import {
   CryptoHistory,
 } from 'components';
 
+// test
+
 export const App = () => {
   return (
     <Section>
