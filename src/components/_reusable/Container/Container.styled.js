@@ -6,5 +6,5 @@ export const ContainerStyled = styled.div`
   padding: ${({ disableXPaddings }) => (disableXPaddings ? 0 : '0 20px')};
   padding-top: ${({ pt }) => (pt ? pt + 'px' : '10px')};
   padding-bottom: ${({ pb }) => (pb ? pb + 'px' : '10px')};
-  background-color: grey;
+  background-color: 'gray';
 `;
