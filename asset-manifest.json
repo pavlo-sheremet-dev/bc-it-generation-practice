@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/bc-it-generation-practice/static/css/main.ce73929e.css",
+    "main.js": "/bc-it-generation-practice/static/js/main.99de482c.js",
+    "index.html": "/bc-it-generation-practice/index.html",
+    "main.ce73929e.css.map": "/bc-it-generation-practice/static/css/main.ce73929e.css.map",
+    "main.99de482c.js.map": "/bc-it-generation-practice/static/js/main.99de482c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ce73929e.css",
+    "static/js/main.99de482c.js"
+  ]
+}
