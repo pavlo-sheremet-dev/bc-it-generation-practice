@@ -3,7 +3,15 @@ import { StatisticsList, StatisticTitle } from './Statistics.styled';
 import { FaRegThumbsUp } from 'react-icons/fa';
 import { MdPeople, MdOutlineProductionQuantityLimits } from 'react-icons/md';
 import { GiTreeDoor } from 'react-icons/gi';
+
 import PropTypes from 'prop-types';
+
+const icons = {
+  1: FaRegThumbsUp,
+  2: MdPeople,
+  3: MdOutlineProductionQuantityLimits,
+  4: GiTreeDoor,
+};
 
 export const Statistics = ({ title, statsData }) => {
   return (
@@ -11,8 +19,14 @@ export const Statistics = ({ title, statsData }) => {
       {title && <StatisticTitle>{title}</StatisticTitle>}
 
       <StatisticsList>
-        {statsData.map(({ id, total, title }) => (
-          <StatisticItem key={id} id={id} total={total} title={title} />
+        {statsData.map(({ id, total, title, iconType }) => (
+          <StatisticItem
+            key={id}
+            id={id}
+            total={total}
+            icon={icons[iconType]}
+            title={title}
+          />
         ))}
       </StatisticsList>
     </>
