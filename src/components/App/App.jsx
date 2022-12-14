@@ -32,8 +32,8 @@ export const App = () => {
         <Heading marginTop="50px" marginBottom="50px" textAlign="center">
           Task 2
         </Heading>
-        <Statistics statsData={stats} title="Main Statistics" />
         <Statistics statsData={stats} />
+        <Statistics statsData={stats} title="Main Statistics" />
 
         <Heading marginTop="50px" marginBottom="50px" textAlign="center">
           Task 3
