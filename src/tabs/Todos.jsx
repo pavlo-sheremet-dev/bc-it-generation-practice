@@ -15,10 +15,35 @@ export class Todos extends Component {
     });
   };
 
+  deleteTodoFromArr = id => {
+    this.setState(({ todos }) => ({
+      todos: todos.filter(todo => todo.id !== id),
+    }));
+  };
+
   render() {
+    const { todos } = this.state;
     return (
       <>
         <SearchForm onSubmit={this.onSubmit} />
+        {todos.length > 0 ? (
+          <Grid>
+            {todos.map(({ id, text }, idx) => {
+              return (
+                <GridItem key={id}>
+                  <Todo
+                    id={id}
+                    number={idx + 1}
+                    text={text}
+                    deleteTodo={this.deleteTodoFromArr}
+                  />
+                </GridItem>
+              );
+            })}
+          </Grid>
+        ) : (
+          <Text>There are no todos...</Text>
+        )}
       </>
     );
   }
