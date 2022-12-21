@@ -8,6 +8,25 @@ export class Todos extends Component {
     editToDo: null,
   };
 
+  componentDidMount = () => {
+    try {
+      const getData = JSON.parse(localStorage.getItem('todos'));
+      if (!getData) {
+        return;
+      } else {
+        this.setState({ todos: getData });
+      }
+    } catch (error) {
+      return;
+    }
+  };
+
+  componentDidUpdate = (_, prevState) => {
+    if (prevState.todos !== this.state.todos) {
+      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
+  };
+
   onSubmit = todo => {
     this.setState(prevState => {
       return {
