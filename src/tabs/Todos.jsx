@@ -4,37 +4,46 @@ import { Grid, GridItem, SearchForm, EditForm, Text, Todo } from 'components';
 
 export class Todos extends Component {
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+    todos: [],
   };
 
-  onclickIncrement = option => {
-    console.log(option);
-
+  onSubmit = todo => {
     this.setState(prevState => {
       return {
-        [option]: prevState[option] + 5,
+        todos: [...prevState.todos, { ...todo, id: nanoid() }],
       };
     });
+  };
 
-    // this.setState(prevState => {
-    //   return { [option]: prevState[option] + 1 };
-    // });
+  deleteTodoFromArr = id => {
+    this.setState(({ todos }) => ({
+      todos: todos.filter(todo => todo.id !== id),
+    }));
   };
 
   render() {
+    const { todos } = this.state;
     return (
       <>
-        {Object.keys(this.state).map(option => (
-          <button
-            key={option}
-            type="button"
-            onClick={() => this.onclickIncrement(option)}
-          >
-            {option}
-          </button>
-        ))}
+        <SearchForm onSubmit={this.onSubmit} />
+        {todos.length > 0 ? (
+          <Grid>
+            {todos.map(({ id, text }, idx) => {
+              return (
+                <GridItem key={id}>
+                  <Todo
+                    id={id}
+                    number={idx + 1}
+                    text={text}
+                    deleteTodo={this.deleteTodoFromArr}
+                  />
+                </GridItem>
+              );
+            })}
+          </Grid>
+        ) : (
+          <Text>There are no todos...</Text>
+        )}
       </>
     );
   }
