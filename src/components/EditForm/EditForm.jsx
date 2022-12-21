@@ -1,18 +1,10 @@
 import { RiSaveLine } from 'react-icons/ri';
 import { MdOutlineCancel } from 'react-icons/md';
-<<<<<<< HEAD
-=======
 import { Component } from 'react';
->>>>>>> 29c3a2f2984ff0252c69ba0fed637f67962ca7ae
 
 import { SearchFormStyled, FormBtn, InputSearch } from 'components';
 import { BtnEdit } from './EditForm.styled';
 
-<<<<<<< HEAD
-export const EditForm = () => {
-  return <h2>Edit Form</h2>;
-};
-=======
 export class EditForm extends Component {
   onSubmitEdit = ev => {
     const { editToDo } = this.props;
@@ -46,4 +38,3 @@ export class EditForm extends Component {
     );
   }
 }
->>>>>>> 29c3a2f2984ff0252c69ba0fed637f67962ca7ae
