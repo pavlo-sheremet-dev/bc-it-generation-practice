@@ -14,6 +14,8 @@ export class SearchForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    if (!this.state.text) return;
+
     this.props.onSubmit({ ...this.state });
     this.setState({ text: '' });
   };

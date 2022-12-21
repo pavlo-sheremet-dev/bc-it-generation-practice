@@ -29,8 +29,9 @@ export class Todos extends Component {
 
   onSubmit = todo => {
     this.setState(prevState => {
+      const updateContacts = [...prevState.todos, { ...todo, id: nanoid() }];
       return {
-        todos: [...prevState.todos, { ...todo, id: nanoid() }],
+        todos: updateContacts,
       };
     });
   };

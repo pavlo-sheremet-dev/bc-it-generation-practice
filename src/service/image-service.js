@@ -8,4 +8,4 @@ axios.defaults.params = {
   per_page: 15,
 };
 
-export const getImages = (query, page) => {};
+export const getImages = async (query, page) => {};
