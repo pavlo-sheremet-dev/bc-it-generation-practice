@@ -1,7 +1,21 @@
-import { css } from '@emotion/react';
-import { theme } from 'styles/theme';
+import { Global, css } from '@emotion/react';
 
-export const GlobalStyles = css`
+export const GlobalStylesComponent = ({ theme }) => {
+  return (
+    <>
+      <Global styles={GlobalStyles} />
+      <Global
+        styles={{
+          body: {
+            background: theme.colors.mainBackground,
+          },
+        }}
+      />
+    </>
+  );
+};
+
+const GlobalStyles = css`
   html {
     box-sizing: border-box;
     scroll-behavior: smooth;
@@ -12,7 +26,6 @@ export const GlobalStyles = css`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
       'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif;
-    background: ${theme.colors.mainBackground};
     min-height: 100vh;
 
     font-style: normal;
