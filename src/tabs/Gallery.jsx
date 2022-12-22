@@ -7,15 +7,24 @@ export class Gallery extends Component {
   state = {
     query: '',
     images: [],
+    page: 1,
   };
 
   getQuery = queryObject => {
     this.setState({ query: queryObject.text });
   };
-
-  componentDidUpdate = (_, prevState) => {
+  componentDidMount = async () => {
+    // const { photos, totalPhotos } = await ImageService.getImages('car', 1);
+  };
+  componentDidUpdate = async (_, prevState) => {
+    console.log('componentDidUpdate');
+    const { query, page, images } = this.state;
     if (prevState.query !== this.state.query) {
-      console.log('query update');
+      const { photos, totalPhotos } = await ImageService.getImages(query, page);
+      this.setState(prevState => {
+        return { images: [...prevState.images, ...photos] };
+      });
+      // console.log(photos, totalPhotos);
     }
   };
 
