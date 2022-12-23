@@ -10,6 +10,11 @@ import { Button, SearchForm, Text, Loader, GalleryList } from 'components';
 //   rejected: 'rejected',
 // };
 
+// 3 ДЗ - 25.12
+// test - 27.12
+// 4 ДЗ - 29.12
+// 5-6 ДЗ - 02.01-08.01
+
 export class Gallery extends Component {
   state = {
     query: '',

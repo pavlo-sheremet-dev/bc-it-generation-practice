@@ -1,23 +1,12 @@
 import { Component, useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { Grid, GridItem, SearchForm, EditForm, Text, Todo } from 'components';
+import { getDataFromLS } from 'service/localStorage';
 
 export const Todos = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => getDataFromLS('todos', []));
   const [editToDo, setEditToDo] = useState(null);
 
-  useEffect(() => {
-    try {
-      const parsedData = JSON.parse(localStorage.getItem('todos'));
-      if (!parsedData) {
-        return;
-      } else {
-        setTodos(parsedData);
-      }
-    } catch (error) {
-      return;
-    }
-  }, []);
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
