@@ -13,3 +13,6 @@ export * from 'components/Text/Text.styled';
 export * from 'components/Todo/Todo';
 export * from 'components/EditForm/EditForm';
 export * from 'components/ThemeSwitcher/ThemeSwitcher';
+export * from 'components/ImageCard/ImageCard';
+export * from 'components/Loader/Loader.styled';
+export * from 'components/GalleryList/GalleryList';
