@@ -1,7 +1,14 @@
 import { Component } from 'react';
 
 import * as ImageService from 'service/image-service';
-import { Button, SearchForm, Grid, GridItem, Text, CardItem } from 'components';
+import { Button, SearchForm, Text, Loader, GalleryList } from 'components';
+
+// const STATUS = {
+//   idle: 'idle',
+//   pending: 'pending',
+//   resolved: 'resolver',
+//   rejected: 'rejected',
+// };
 
 export class Gallery extends Component {
   state = {
@@ -10,11 +17,8 @@ export class Gallery extends Component {
     page: 1,
     totalPages: 0,
     loading: false,
+    // status: STATUS.idle,
     error: '',
-  };
-
-  getQuery = queryObject => {
-    this.setState({ query: queryObject.text, images: [], page: 1 });
   };
 
   componentDidUpdate = async (_, prevState) => {
@@ -23,6 +27,21 @@ export class Gallery extends Component {
     if (prevState.query !== query || prevState.page !== page) {
       this.getImages();
     }
+  };
+
+  getQuery = queryObject => {
+    this.setState({
+      query: queryObject.text,
+      images: [],
+      page: 1,
+      totalPages: 0,
+    });
+  };
+
+  incrementPage = () => {
+    this.setState(({ page }) => ({
+      page: page + 1,
+    }));
   };
 
   getImages = async () => {
@@ -46,31 +65,30 @@ export class Gallery extends Component {
     }
   };
 
-  incrementPage = () => {
-    this.setState(({ page }) => ({
-      page: page + 1,
-    }));
-  };
-
   render() {
-    const { images } = this.state;
+    const { images, totalPages, page, loading, error } = this.state;
+
+    const showGallery = images.length > 0;
+
+    const showBtn = Boolean(totalPages) && totalPages !== page;
     return (
       <>
         <SearchForm onSubmit={this.getQuery} />
-        {!!images.length && <div>TEXT</div>}
-        {images.length ? (
-          <p>Gallery List</p>
-        ) : (
+
+        {showGallery && <GalleryList images={images} />}
+
+        {!showGallery && (
           <Text textAlign="center">Sorry. There are no images ... 😭</Text>
         )}
 
-        {this.state.error && <p>{this.state.error}</p>}
-        <Button type="button" onClick={this.incrementPage}>
-          Load More
-        </Button>
+        {error && <p>{this.state.error}</p>}
+
+        {showBtn && (
+          <Button type="button" onClick={this.incrementPage} disabled={loading}>
+            {loading ? <Loader /> : <span>Load More</span>}
+          </Button>
+        )}
       </>
     );
   }
 }
-
-// Кнопка не показывается когда происходит загрузка, когда последняя страница.

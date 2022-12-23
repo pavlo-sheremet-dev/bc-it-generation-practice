@@ -13,4 +13,8 @@ export const CardItem = styled.div`
   border: 4px solid ${({ color }) => color ?? '#fff'};
   border-radius: ${({ theme }) => theme.spacing(4)};
   overflow: hidden;
+
+  & img {
+    object-fit: cover;
+  }
 `;
