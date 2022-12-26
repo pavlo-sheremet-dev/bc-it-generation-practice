@@ -1,7 +1,8 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
 import * as ImageService from 'service/image-service';
 import { Button, SearchForm, Text, Loader, GalleryList } from 'components';
+import { useEffect } from 'react';
 
 // const STATUS = {
 //   idle: 'idle',
@@ -10,90 +11,70 @@ import { Button, SearchForm, Text, Loader, GalleryList } from 'components';
 //   rejected: 'rejected',
 // };
 
-// 3 ДЗ - 25.12
-// test - 27.12
-// 4 ДЗ - 29.12
-// 5-6 ДЗ - 02.01-08.01
+export const Gallery = () => {
+  const [query, setQuery] = useState('');
+  const [page, setPage] = useState(1);
+  const [images, setImages] = useState([]);
+  const [totalPages, setTotalPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-export class Gallery extends Component {
-  state = {
-    query: '',
-    images: [],
-    page: 1,
-    totalPages: 0,
-    loading: false,
-    // status: STATUS.idle,
-    error: '',
-  };
-
-  componentDidUpdate = async (_, prevState) => {
-    const { query, page } = this.state;
-
-    if (prevState.query !== query || prevState.page !== page) {
-      this.getImages();
+  useEffect(() => {
+    if (!query) {
+      return;
     }
+    const getImages = async () => {
+      setLoading(true);
+
+      try {
+        const { photos, totalPages } = await ImageService.getImages(
+          query,
+          page
+        );
+
+        setImages(prev => [...prev, ...photos]);
+        setTotalPage(totalPages);
+        setError('');
+      } catch (error) {
+        setError('something went wrong');
+      } finally {
+        setLoading(false);
+      }
+    };
+    getImages();
+    console.log('hello, i am use effect');
+  }, [query, page]);
+
+  const getQuery = queryObject => {
+    setQuery(queryObject.text);
+    setImages([]);
+    setPage(1);
+    setTotalPage(0);
   };
 
-  getQuery = queryObject => {
-    this.setState({
-      query: queryObject.text,
-      images: [],
-      page: 1,
-      totalPages: 0,
-    });
+  const incrementPage = () => {
+    setPage(prev => prev + 1);
   };
 
-  incrementPage = () => {
-    this.setState(({ page }) => ({
-      page: page + 1,
-    }));
-  };
+  const showGallery = images.length > 0;
+  const showBtn = Boolean(totalPages) && totalPages !== page;
+  return (
+    <>
+      <SearchForm onSubmit={getQuery} />
 
-  getImages = async () => {
-    const { query, page } = this.state;
-    this.setState({ loading: true });
+      {showGallery && <GalleryList images={images} />}
 
-    try {
-      const { photos, totalPages } = await ImageService.getImages(query, page);
+      {!showGallery && (
+        <Text textAlign="center">Sorry. There are no images ... 😭</Text>
+      )}
 
-      this.setState(prevState => {
-        return {
-          images: [...prevState.images, ...photos],
-          totalPages,
-          error: '',
-        };
-      });
-    } catch (error) {
-      this.setState({ error: 'something went wrong' });
-    } finally {
-      this.setState({ loading: false });
-    }
-  };
+      {error && <p>{error}</p>}
 
-  render() {
-    const { images, totalPages, page, loading, error } = this.state;
-
-    const showGallery = images.length > 0;
-
-    const showBtn = Boolean(totalPages) && totalPages !== page;
-    return (
-      <>
-        <SearchForm onSubmit={this.getQuery} />
-
-        {showGallery && <GalleryList images={images} />}
-
-        {!showGallery && (
-          <Text textAlign="center">Sorry. There are no images ... 😭</Text>
-        )}
-
-        {error && <p>{this.state.error}</p>}
-
-        {showBtn && (
-          <Button type="button" onClick={this.incrementPage} disabled={loading}>
-            {loading ? <Loader /> : <span>Load More</span>}
-          </Button>
-        )}
-      </>
-    );
-  }
-}
+      {showBtn && (
+        <Button type="button" onClick={incrementPage} disabled={loading}>
+          {loading ? <Loader /> : <span>Load More</span>}
+        </Button>
+      )}
+    </>
+  );
+};
