@@ -1,18 +1,17 @@
 import { useState } from 'react';
 
-import { Grid, GridItem, SearchForm, EditForm, Text, Todo } from 'components';
+import { SearchForm, EditForm, Text, TodoList } from 'components';
 
 import { useArrayDataHandler } from 'hooks/useArrayDataHandler';
 
 export const Todos = () => {
+  const [editToDo, setEditToDo] = useState(null);
   const {
     data: todos,
     deleteData: deleteTodo,
     changeData: editTodo,
     addData: addTodo,
   } = useArrayDataHandler({ localStorageKey: 'todos-dfgdnDfgFRng' });
-
-  const [editToDo, setEditToDo] = useState(null);
 
   const toggleEditForm = id => {
     setEditToDo(id ? todos.find(el => el.id === id) : null);
@@ -36,21 +35,11 @@ export const Todos = () => {
       )}
 
       {todos.length > 0 ? (
-        <Grid>
-          {todos.map(({ id, text }, idx) => {
-            return (
-              <GridItem key={id}>
-                <Todo
-                  id={id}
-                  number={idx + 1}
-                  text={text}
-                  deleteTodo={deleteTodo}
-                  openEditForm={toggleEditForm}
-                />
-              </GridItem>
-            );
-          })}
-        </Grid>
+        <TodoList
+          todos={todos}
+          deleteTodo={deleteTodo}
+          toggleEditForm={toggleEditForm}
+        />
       ) : (
         <Text>There are no todos...</Text>
       )}
