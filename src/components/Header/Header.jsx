@@ -3,7 +3,7 @@ import { NavBar, HeaderWrapper, NavText } from './Header.styled';
 import { Container, ThemeSwitcher } from 'components';
 import { useTheme } from '@emotion/react';
 
-export const Header = ({ toggleTheme, themeTitle }) => {
+export const Header = () => {
   const theme = useTheme();
 
   return (
@@ -15,7 +15,7 @@ export const Header = ({ toggleTheme, themeTitle }) => {
 
             <NavText>Lesson 2</NavText>
           </HeaderWrapper>
-          <ThemeSwitcher toggleTheme={toggleTheme} theme={themeTitle} />
+          <ThemeSwitcher />
         </Container>
       </NavBar>
     </>
