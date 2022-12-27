@@ -1,12 +1,4 @@
-import {
-  BlogCard,
-  Container,
-  Section,
-  Heading,
-  Statistics,
-  ForbesList,
-  CryptoHistory,
-} from 'components';
+import { Container, Section, Heading, Examples } from 'components';
 
 // test
 
@@ -15,24 +7,13 @@ export const App = () => {
     <Section>
       <Container>
         <Heading marginBottom="50px" textAlign="center">
+          Examples
+        </Heading>
+        <Examples />
+        {/* <Heading marginBottom="50px" textAlign="center">
           Task 1
         </Heading>
-        <BlogCard />
-
-        <Heading marginTop="50px" marginBottom="50px" textAlign="center">
-          Task 2
-        </Heading>
-        <Statistics />
-
-        <Heading marginTop="50px" marginBottom="50px" textAlign="center">
-          Task 3
-        </Heading>
-        <ForbesList />
-
-        <Heading marginTop="50px" marginBottom="50px" textAlign="center">
-          Task 4
-        </Heading>
-        <CryptoHistory />
+        <BlogCard /> */}
       </Container>
     </Section>
   );
