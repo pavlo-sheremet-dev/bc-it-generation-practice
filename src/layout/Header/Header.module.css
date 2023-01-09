@@ -23,5 +23,5 @@
 }
 
 .activeLink {
-  @apply border-b-4 border-indigo-500 pointer-events-none;
+  @apply border-b-4 border-indigo-500;
 }
