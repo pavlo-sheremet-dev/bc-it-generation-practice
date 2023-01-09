@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { CocktailsList } from "../components/CocktailsList";
 import { Section } from "../components/Section";
 import { Loader } from "../components/Loader";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 import { getTrendingCocktails } from "../api/cocktail-service";
 
@@ -19,10 +20,17 @@ export const Home = () => {
         setCocktails(cocktails);
       } catch (error) {
         setError("something went wrong");
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (!error) return;
+    Notify.failure(error);
   }, []);
 
   return (
@@ -34,6 +42,7 @@ export const Home = () => {
 
         <CocktailsList cocktails={cocktails} />
       </Section>
+      {isLoading && <Loader />}
     </>
   );
 };
