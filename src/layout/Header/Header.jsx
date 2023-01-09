@@ -1,10 +1,11 @@
-import { NavLink, Link } from 'react-router-dom';
-import { routes } from '../../routes';
-import styles from './Header.module.css';
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
+import { routes } from "../../routes";
+import styles from "./Header.module.css";
 
 const menu = [
-  { id: 'home', name: 'home', route: routes.HOME },
-  { id: 'cocktails', name: 'cocktails', route: routes.COCKTAILS },
+  { id: "home", name: "home", route: routes.HOME },
+  { id: "cocktails", name: "cocktails", route: routes.COCKTAILS },
 ];
 
 export const Header = () => {
